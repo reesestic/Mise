@@ -109,8 +109,8 @@ An OpenAI API account and a ChatGPT subscription are separate. An Anthropic API 
 
 | Item | Status | Needed for |
 | --- | --- | --- |
-| Local Git repository | Initialized; latest commit `d06d408` | Start tracking changes |
-| GitHub remote | `origin` points to `reesestic/Mise`; remote `main` matches local commit `d06d408` | Off-device backup and collaboration |
+| Local Git repository | Initialized and committed | Start tracking changes |
+| GitHub remote | `origin` points to `reesestic/Mise`; `main` has been pushed | Off-device backup and collaboration |
 | Node.js / npm | Installed: Node `v24.18.0`, npm `11.16.0` | Expo app development |
 | Expo account | Not set up in this checklist | EAS cloud services/builds |
 | Supabase development project | Not set up in this checklist | Auth and persistent shared data |
