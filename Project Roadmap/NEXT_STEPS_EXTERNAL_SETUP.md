@@ -17,7 +17,8 @@ See [TECH_STACK.md](../Structure/TECH_STACK.md) for architecture and [PROJECT_RO
 ### Step 1 — Save the project in Git
 
 - [x] Initialize a local Git repository in this folder.
-- [ ] Review the first commit and confirm that all current project documents, diagrams, and visuals are included.
+- [x] Create the initial commit with the current project documents, diagrams, and visuals.
+- [ ] Review the initial commit and confirm that all intended project materials are included.
 - [ ] Create a **private** GitHub repository named `mise` (or another available name).
 - [ ] Connect it as the `origin` remote and push the local `main` branch.
 - [ ] Keep `.env`, API keys, passwords, and generated native signing credentials out of Git.
@@ -109,7 +110,7 @@ An OpenAI API account and a ChatGPT subscription are separate. An Anthropic API 
 
 | Item | Status | Needed for |
 | --- | --- | --- |
-| Local Git repository | Initialized by Codex; first commit pending | Start tracking changes |
+| Local Git repository | Initialized with initial commit `d9e0c06` | Start tracking changes |
 | GitHub account/private remote | Not connected yet | Off-device backup and collaboration |
 | Node.js LTS / npm | Verify on development machine | Expo app development |
 | Expo account | Not set up in this checklist | EAS cloud services/builds |
