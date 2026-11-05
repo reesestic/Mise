@@ -1,6 +1,6 @@
 # Mise — Recommended Technology Stack
 
-**Decision status:** Recommended starting point, not yet installed.  
+**Decision status:** Installed starter in `apps/mobile` (Expo SDK 57, React Native, TypeScript); Supabase client and TheMealDB development adapter are wired.  
 **Product:** iOS and Android mobile app for meal discovery, grocery planning, Pantry inventory, and user-approved AI suggestions.
 
 ## 1. Recommended stack at a glance

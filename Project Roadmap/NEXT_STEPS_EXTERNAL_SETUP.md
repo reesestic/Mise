@@ -1,6 +1,6 @@
 # Mise — Next Steps and External Setup
 
-This checklist takes the project from its current state (product/design documents, no app code, no Git repo) to a working development setup with the external accounts chosen for an MVP.
+This checklist tracks the project from product/design documents to a working mobile development setup and the external accounts chosen for an MVP.
 
 ## Recommended choices
 
@@ -26,20 +26,20 @@ The local repository can exist without GitHub. GitHub is the online backup/colla
 
 ### Step 2 — Install local development tools
 
-- [ ] Install current Node.js LTS (npm is included).
+- [x] Install Node.js and npm (Node `v24.18.0`, npm `11.16.0` in this workspace).
 - [ ] Install/use Git and an editor such as VS Code. Codex can work in this same project folder.
 - [ ] Install Expo Go on a phone for the first screen prototype.
 - [ ] Optional: install Android Studio to run an Android emulator.
 - [ ] Windows cannot run Xcode locally. Use Expo cloud builds for iOS when a native development build is needed, or use a Mac. Start with Expo Go before paying for store accounts.
 
-Then scaffold Expo with TypeScript and Expo Router. Keep the product documents outside the application source folders; they are project reference material.
+Node.js and npm are installed in this workspace. The Expo app is scaffolded under `apps/mobile`; keep product documents outside application source folders as project reference material.
 
 ### Step 3 — Create the Expo project
 
 - [ ] Create an Expo account.
-- [ ] Create the TypeScript app in this project (or create it in a temporary folder and move its app files into the project after checking names).
+- [x] Create the TypeScript app with Expo Router under `apps/mobile` (Expo SDK 57).
 - [ ] Start the development server and open the starter app on a physical phone.
-- [ ] Add Expo Router and create empty routes for Cook Now, Groceries, Pantry, Explore, Profile, and meal detail.
+- [x] Add initial Cook Now search, meal detail, Groceries, and Pantry routes. Explore/Profile remain future screens.
 - [ ] Create a development build only when Expo Go no longer supports a native feature you need.
 - [ ] Set up EAS Build when you need iOS cloud builds, shareable preview builds, or store binaries.
 
@@ -112,8 +112,9 @@ An OpenAI API account and a ChatGPT subscription are separate. An Anthropic API 
 | Local Git repository | Initialized and committed | Start tracking changes |
 | GitHub remote | `origin` points to `reesestic/Mise`; `main` has been pushed | Off-device backup and collaboration |
 | Node.js / npm | Installed: Node `v24.18.0`, npm `11.16.0` | Expo app development |
-| Expo account | Not set up in this checklist | EAS cloud services/builds |
-| Supabase development project | Not set up in this checklist | Auth and persistent shared data |
+| Expo account | Not needed for local Expo Go preview; create when using EAS cloud services/builds | Cloud builds and distribution |
+| Supabase project | User supplied project `gjgqdgtedhcbgjqpdcvq`; URL prefilled locally, publishable key still needs to be added | Auth and persistent shared data |
+| TheMealDB | Development API wired in `apps/mobile/src/data/themealdb.ts` | Prototype meal search/details; paid terms apply before store publication |
 | Recipe content source | Decision: original content + TheMealDB for prototyping | Meal catalog |
 | OpenAI or Anthropic API | Defer until planning feature | In-app AI feature |
 | Apple / Google developer accounts | Defer until distribution | Store testing/release |
