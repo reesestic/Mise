@@ -133,7 +133,7 @@ export default function CookNowScreen() {
             <Text style={styles.chevron}>›</Text>
           </Pressable>
         )}
-        ListFooterComponent={meals.length ? <Text style={styles.footer}>Recipe data and images provided by TheMealDB.</Text> : null}
+        ListFooterComponent={meals.length ? <Text style={styles.footer}>Recipe data and images provided by TheMealDB.</Text> : undefined}
       />
     </SafeAreaView>
   );

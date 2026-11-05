@@ -37,7 +37,7 @@ Node.js and npm are installed in this workspace. The Expo app is scaffolded unde
 ### Step 3 — Create the Expo project
 
 - [ ] Create an Expo account.
-- [x] Create the TypeScript app with Expo Router under `apps/mobile` (Expo SDK 57).
+- [x] Create the TypeScript app with Expo Router under `apps/mobile` (Expo SDK 58, aligned with the Expo Go version in use).
 - [ ] Start the development server and open the starter app on a physical phone.
 - [x] Add initial Cook Now search, meal detail, Groceries, and Pantry routes. Explore/Profile remain future screens.
 - [ ] Create a development build only when Expo Go no longer supports a native feature you need.
