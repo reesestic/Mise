@@ -3,6 +3,7 @@ export const colors = {
   surface: '#FFFEFA',
   ink: '#283638',
   herb: '#3E7160',
+  celadon: '#6E9A7E',
   deepHerb: '#285447',
   apricot: '#F2A16F',
   tomato: '#D9634D',
