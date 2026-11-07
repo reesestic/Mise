@@ -54,11 +54,11 @@ Use Oat Milk as the broad field and Porcelain for readable cards. Herb should be
 
 ### Groceries — “a useful shop, made visible”
 
-**Request panel:** A compact rounded input on Oat Milk/Porcelain: “What would you like this shop to help with?” with microphone and submit icons. After submit, clear the field and show the response as a suggestion card with an explicit Add button.
+**Request panel:** A compact rounded, freeform input on Oat Milk/Porcelain: “What should be in your cart?” with Olly, microphone, and submit icons. It accepts quick grocery requests or broad meal requests without requiring filters. After a meal request, show a concise draft for review and explicit Add action; do not turn the page into a chat transcript.
 
 **Shared list:** The central surface, not a chat transcript. Rows show item, amount, estimated range where available, and a small “in 2 meals” link. Expanded rows show Pantry contribution, shortfall, and meals using it. A concise choice set and a clear estimate reduce shopping decisions; a top summary can say “This list supports 4 meals” and “Estimated range” without implying exact checkout cost.
 
-**Unlock idea:** An Apricot or Sage Mist card beneath the list: “Add spinach + feta to open up 2 more meals” with the specific meals and estimated addition range. Primary action: “Add these items.” Secondary action: “See meals.”
+**Unlock idea:** One compact, conditional Olly card beneath meal coverage, styled in Sage Mist with a small Apricot accent: “Add spinach + feta to open up 2 more meals.” Name the additional meals and show an estimated addition range when supported. Primary action: “Add these items.” Secondary action: “See meals.” This is a single contextual insight, not a standing scrollable recommendation feed.
 
 ### Pantry — “what I actually own”
 

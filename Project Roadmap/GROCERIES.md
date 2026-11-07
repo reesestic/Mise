@@ -2,101 +2,129 @@
 
 ## Purpose
 
-Make shopping faster, more affordable, goal-aware, and less mentally effortful. Turn a request such as “three or four chicken meals under $40 and below 600 calories each” into a small set of appealing meal choices and one understandable, editable ingredient pool. The user can see what they are buying, how ingredients are shared across meals, and the variety the shop could support—without being locked into cooking every suggested meal.
+Keep shopping understandable and flexible. Groceries is the user's working list: a place to make freeform requests, track intended purchases, and see how Pantry stock and selected meals affect ingredient quantities. It can support meal choices without becoming a rigid weekly meal planner.
 
 ## User value
 
-Turn a goal such as “three or four chicken meals under $40 and below 600 calories each” into meal choices and one understandable, editable ingredient pool. The user sees what they are buying, how ingredients are shared, and what food options the shop is intended to support.
+Help users buy what they need, avoid duplicating food they own, and understand what their groceries can support. Keep **Pantry stock**, **items intended for purchase**, and **items physically picked up in the store** visibly distinct.
 
 ## What it does
 
-- Keep an editable shopping list as the central shopping surface.
-- Place a natural-language text/voice input at the top of the screen. It is ready for a fresh request after each submission, while Mise still uses the active list, Pantry, and relevant preferences as context.
-- Treat each request as a request for suggestions or changes, not permission to modify the list: show suggested items with an explicit **Add** action. Never remove existing items automatically; users remove them with a clear delete control.
-- Put the list first in the screen hierarchy. Each line should show the item, quantity/package, estimated price range when available, and the number of currently shown meals it supports. Every item can expand to show its details and the meals it contributes to.
-- Accept meal-oriented planning requests using budget, servings, nutrition goals, tastes, time, and other preferences.
-- Reduce shopping decision time by returning a concise, relevant set of choices with clear tradeoffs, rather than a long undifferentiated list. The user can add, remove, or change their mind at any point.
-- Prefer affordable, versatile ingredients that support multiple appealing meals when appropriate. Show which meals reuse each ingredient and what additional variety an ingredient unlocks; do not optimize overlap so aggressively that the meals become repetitive or unwanted.
-- Respect macro-oriented nutrition goals (such as higher protein or a calorie target) as flexible goals unless the user marks them as strict; identify nutrition values as estimates when source data is incomplete.
-- Interpret each fresh message in context of the current grocery list and Pantry, so users can ask for related additions without restating everything.
-- Let users keep adding, editing, or removing items from one open-ended shopping list. A new prompt should not clear existing items; it should use the current list and Pantry as context and propose relevant additions or edits.
-- Use meal candidates to explain and shape the list. When a user chooses a meal idea, propose its missing ingredients as additions to the shared list; do not create a separate meal plan or replace the list.
-- Account for Pantry stock when calculating ingredient shortfalls, while keeping confirmed inventory separate from planned purchases.
-- Make each grocery item expandable. Its expanded details show quantity/unit or package, estimated price range, any Pantry contribution/shortfall, and the meals that use the ingredient.
-- Let users change meals, servings, quantities, or substitutions and see the resulting effect on the basket and meal coverage.
-- Support unrelated quick-add items by text or voice, plus restock items sent from Pantry and missing ingredients sent from Cook Now.
-- Offer contextual ideas such as an addition that unlocks more useful meals, but always show the relevant meals and estimated cost and require user approval to add it.
-- Below the list, show an expandable **Meals Supported by This List** section. Each meal expands to show its ingredients and whether each is in Pantry, on the shopping list, or still missing. These are meal possibilities enabled by the basket; do not imply list items are owned before purchase.
-- Below meal coverage, show contextual suggestions such as “Add black beans and avocado for about $X to unlock two more meals.” These are proposed additions, not silent edits.
-- Show estimated cost and budget fit as estimates, with source/age or confidence where available.
-- Support checking off items and a purchase-confirmation step that records which items were actually bought and the quantity/package acquired, so Pantry can be updated accurately. Do not require users to enter prices at checkout.
-- After purchase confirmation, update Pantry with the actual purchased package/quantity. Meals only become Ready to Make in Cook Now once confirmed inventory supports them.
+- Keep one editable grocery list as the main working surface.
+- Provide a freeform text/voice request input at the top. Users can ask for ingredients, meal ideas, or changes in ordinary language (for example, “four chicken meals for around $40”). Do not require a set of filters or force the user into a structured meal-planning flow.
+- Respond to meal requests with a concise set of candidate meals and an estimated basket impact. Do not show an unsolicited meal-recommendation feed. A single compact, contextual Olly insight may show below meal coverage when specific pantry/list items could unlock additional meals; it must identify the ingredients and meals, and require the user's choice before adding anything.
+- Let users add a meal from Cook Now or an explicit request to the current grocery context. Adding a meal creates ingredient demand; it does not mean the user has committed to cooking it on a schedule.
+- Consolidate ingredients across the meals the user has chosen for this shop. For each ingredient, calculate combined demand across those meals and servings, then compare it with confirmed Pantry stock and quantities already on the grocery list. Do not count the same Pantry quantity once for every meal.
+- Show the combined quantity, Pantry contribution, amount intended for purchase, amount physically in the cart, and any remaining shortfall. Use labels as well as color or icons.
+- Keep grocery item quantities editable. Allow unrelated quick-add items, restock items from Pantry, and missing ingredients sent from Cook Now.
+- Show which selected meals use each shared grocery item. A compact, expandable **Meals for this shop** / **Meals this list supports** area gives the list context without becoming a recipe-browsing carousel.
+- Let a user inspect a selected meal's ingredients and see the status of each ingredient: in Pantry, on the grocery list, physically in the cart, or still short.
+- If the combined requirements for selected meals exceed available Pantry plus list quantities, show the shared ingredient and shortage. Keep the individual meal options visible, while making clear when the whole selected set is not covered.
+- When a user removes a meal, recalculate meal-derived ingredient needs and show the quantity changes before applying them. Keep manually added groceries intact unless the user explicitly chooses to remove or reduce them.
+- Show estimated costs and budget fit as estimates. A request such as “four meals for $40” refers to a target for the additional shopping basket unless the user specifies otherwise; do not assume a per-meal budget or promise an exact checkout total.
+- Let users edit meal servings, quantities, or supported substitutions and review the resulting effect on combined ingredient demand and the list.
+- Keep the request input fresh after submission while retaining the active list, Pantry, selected meal context, and relevant Profile preferences.
+- Support a visible picked-up/in-cart state for items the user has physically placed in their cart. Picked-up items remain intended purchases, not confirmed Pantry stock.
+- Provide a later purchase-review step that records what was actually bought and in what quantity/package. On confirmation, update Pantry; do not require price entry.
 
 ## What it does not do
 
-- It is not a generic generator of ingredient piles with no meal rationale.
-- It does not require every grocery item to belong to a recipe; ordinary household shopping remains supported.
-- It does not promise the cheapest cart, identify live sales, or guarantee an exact checkout total without reliable retailer price and availability data.
-- It does not treat estimated prices as exact or claim a budget is guaranteed when it has only estimates.
-- It does not assume a recipe shortfall maps exactly to a purchasable package size.
-- It does not automatically commit AI-generated changes or treat planned groceries as Pantry inventory.
+- It is not a rigid weekly meal planner. Users may choose several meals for one shopping context, but the app does not require dates, schedules, or commitments to cook them.
+- It does not show an unsolicited meal-recommendation feed or a required “unlock more meals” section. One compact contextual unlock insight may appear when supported by the current Pantry/list state; meal candidates and ingredient additions still require user choice.
+- It does not require filters to express grocery or meal requests.
+- It does not treat a meal idea as a commitment or reserve Pantry quantities merely because the meal was viewed or saved.
+- It does not treat items on the grocery list or physically in the cart as owned Pantry stock. Cook Now readiness based on owned food changes only after purchase confirmation updates Pantry.
+- It does not silently delete or reduce existing list items when meals are removed or changed.
+- It does not promise live sales, the cheapest cart, exact checkout totals, or exact meal costs without reliable current data.
+- It does not require every grocery item to support a recipe; ordinary household shopping remains supported.
 
-## Meal-led planning and the shared basket
+## Shared ingredient calculation
 
-The shopping list is the source of truth for intended purchases. Meal suggestions explain which meals the list may support and help the user decide whether to add ingredients. Shared ingredient quantities stay consolidated in one communal list rather than being split into exclusive per-recipe shopping lists.
+Treat meal quantities as shared demand rather than assigning a Pantry item permanently to one recipe. For each ingredient, normalize units where possible and calculate:
 
-Keep these quantities distinct:
+```text
+combined meal demand = sum of the ingredient quantities for selected meals and servings
+usable Pantry stock = confirmed Pantry quantity (less any user-set-aside amount, if supported)
+list coverage = quantity already intended for purchase on the open grocery list
+remaining shortfall = max(0, combined meal demand - usable Pantry stock - list coverage)
+```
 
-1. **Meal requirement:** required amount for a suggested meal and its selected servings.
-2. **Pantry contribution:** usable quantity already owned.
-3. **Shortfall:** amount still required for the meal, after Pantry contribution.
-4. **Suggested purchase:** likely package/quantity if known, otherwise a transparent estimate or user-editable amount.
-5. **Actual purchase:** item and quantity/package confirmed by the user. Actual price is optional and is not required for purchase confirmation.
+The grocery line is consolidated, with a breakdown of what selected meals need and what Pantry already contributes. For example, if two selected meals need 18 oz of chicken in total, Pantry has 10 oz, and the list already has 4 oz, show that 4 oz more is needed. Do not calculate each meal against the full Pantry independently and then accidentally double-count the same stock.
 
-For example, if a suggested meal needs 20 oz of chicken and Pantry contributes 10 oz, Mise can suggest adding the remaining amount or a known package size. If two meal suggestions both use chicken, show their combined amount on one list line and let the user inspect which meals use it. If package or price information is missing, Mise should not pretend that a precise package exists or invent an exact cost. Any extra purchased amount remains in Pantry after confirmation.
+The user may have food they intend to save for another use. An explicit **Set aside** quantity could reduce usable Pantry stock, but this is an optional future refinement, not a requirement to plan meals or the initial Grocery screen. Do not infer reservations from a saved or viewed recipe.
+
+### Ingredient status language
+
+- **Pantry:** confirmed owned quantity.
+- **On list:** intended quantity to buy; not owned yet.
+- **In cart:** the user says they physically picked up that item while shopping; still not confirmed Pantry stock.
+- **Short:** the selected meal set still needs this quantity after Pantry and list coverage.
+- **Ready now:** a meal is supported by confirmed Pantry stock alone.
+- **Covered by this shop:** the selected meal set is covered by Pantry plus intended grocery purchases, subject to purchase confirmation.
+
+Use text labels in addition to palette colors/icons. Do not describe a meal as cookable from owned inventory just because its ingredients are on the list or in the physical cart.
+
+## Removing or changing a selected meal
+
+Meal-derived needs should recalculate from the current selected-meal set. Before reducing quantities already on the list, present a concise change review, for example: “Removing Chicken Fajitas lowers meal-related chicken need from 18 oz to 8 oz. Keep the extra 10 oz on your list, or reduce the list quantity?”
+
+Track the source of quantities where possible:
+
+- Meal-derived quantity for selected meals.
+- User-added quantity or extra amount.
+- Current picked-up status.
+
+Removing a meal may reduce the meal-derived portion, but it must not silently remove a user-added amount. If the user confirms an adjustment, update the grocery line and all meal-coverage totals together. If an ingredient was manually deleted or reduced and the selected meal set no longer has enough, show the resulting shortfall on the relevant meal and shared ingredient summary.
+
+## Meal choices without a rigid meal plan
+
+Cook Now remains the main place to browse meals grounded in confirmed Pantry stock. Groceries can show the meals the user explicitly brought into the current shopping context, plus their ingredient coverage. This is a compact source/coverage view, not a second recipe feed.
+
+An explicit request can return a draft set of meal options, such as four chicken meals around a requested basket budget. The user can keep or replace options, then choose which meals to include in the shopping calculation. Replacing or removing a meal recalculates shared needs. A saved/interested meal alone does not create grocery items or reserve stock. A single contextual insight below meal coverage may say, for example, “Add spinach and chickpeas to open up 3 more meals,” and show those meals before the user chooses Add.
+
+A visual weekly meal collage or calendar, and the ability to reserve food for future meals outside the current shopping context, are possible separate future features. They are not required for the Grocery page and should not make its core list rigid.
 
 ## Pricing without retailer data
 
-Live store-specific prices and sales are not assumed for the MVP. Use the easiest reliable baseline available for the prototype—such as a small, curated set of common ingredient price ranges, informed by public average-price data where practical. BLS publishes average retail prices for selected food items, and USDA ERS publishes food price datasets including area-level monthly prices. These can inform rough estimates, but do not provide a current exact price for every package at the user's chosen store. [BLS average price data](https://www.bls.gov/cpi/factsheets/average-prices.htm), [USDA ERS Food-at-Home Monthly Area Prices](https://www.ers.usda.gov/data-products/food-at-home-monthly-area-prices).
+Live store-specific prices and sales are not assumed for the MVP. Use a maintained baseline for rough ingredient price ranges where feasible. Clearly label estimates and show their source, age, or confidence when available. A total such as “about $32–$40 for the additional items” is a planning estimate, not a checkout promise. Do not imply exact package sizes or prices when data is unavailable. Actual spending is not reported unless the user supplies it or an authorized source provides it.
 
-For the MVP, show estimated price ranges and clearly label them as estimates. Prefer an approach that is easy to maintain and accurate enough to compare options; avoid building store-level price infrastructure before validating the product. Do not require users to enter prices at checkout. Purchase confirmation records what they bought and the quantity/package, so Pantry reflects actual inventory. Mise should not report actual spending unless the user later chooses to provide it or an authorized source supplies it.
-
-Mise can still help users shop affordably by comparing meal combinations, showing ingredient reuse across meals, offering lower-cost substitutions when supported, and making budget tradeoffs visible. It should not claim “best deal” or “cheapest cart” without current, reliable retailer data.
-
-Possible later improvements include opt-in use of confirmed purchase history, approved retailer APIs/partnerships, receipt capture, or licensed product-price data. Each depends on data access, quality, and terms; the core flow must remain useful without them.
+Mise can still help users shop affordably by showing shared ingredient use, Pantry contributions, and supported lower-cost substitutions when reliable data exists. It should not claim “best deal” or “cheapest cart” without current, reliable retailer data.
 
 ## Connections to other areas
 
-- **Cook Now → Groceries:** The user chooses a meal and servings, then adds all or only missing ingredients.
-- **Explore → Groceries:** The user can choose a saved/discovered meal and add its ingredients to the shopping list; saving alone never adds it.
-- **Pantry → Groceries:** Inventory prevents duplicate suggestions and informs shortfalls; restocking is an editable list action.
-- **Groceries → Pantry:** Confirmed purchases update owned quantities; planned or unchecked items do not.
-- **Groceries → Cook Now:** Once Pantry reflects confirmed purchases, supported meals can appear as ready. The active list alone does not make a meal cookable.
-- **Profile → Groceries:** Goals, restrictions, tastes, household size, and budget defaults shape planning.
+- **Cook Now → Groceries:** The user explicitly adds all or only missing ingredients for a meal and selected servings to the open list. Meal needs join the shared ingredient calculation.
+- **Explore / saved meals → Groceries:** The user can explicitly choose to add a meal's requirements. Saving alone never changes the grocery list.
+- **Pantry → Groceries:** Confirmed inventory prevents duplicate purchases and informs the combined shortfall; restocking is an editable grocery action.
+- **Groceries → Pantry:** Only confirmed purchased quantities update owned inventory. Planned and physically picked-up items remain distinct until purchase confirmation.
+- **Groceries → Cook Now:** Meals become Ready to Make from confirmed Pantry inventory after the purchase is recorded.
+- **Profile → Groceries:** Dietary restrictions, preferences, household size, and optional budget defaults may inform explicit requests. Groceries does not add a separate filter system.
 
 ## AI role
 
-Interpret each message in the context of the active shopping list, Pantry, and relevant preferences. For example, after adding ingredients for chicken meals, “add a fruit juice that goes with these meals” should use those meals as context and propose an addition, not start a separate plan. Propose meal candidates, calculate shared ingredient needs and servings, compare cost/variety/goal tradeoffs, suggest useful substitutions, and update the proposed list when the user changes constraints. A reliable calculation/validation step checks quantities, serving totals, and estimated cost. Show what would change and why; the user reviews and approves changes.
+Interpret a user's explicit request in the context of the open grocery list, confirmed Pantry quantities, selected meals, and relevant Profile preferences. Retrieve or propose meal candidates only when asked; calculate ingredient quantities and shared shortfalls with deterministic validation; estimate basket cost only to the level supported by data; explain the proposed changes; and wait for the user's choice before changing the list. AI must not invent exact costs or quantities, count unpurchased groceries as owned, or silently remove existing items.
 
-This can be agentic without relying on a free-form chat interface: the agent can gather constraints, retrieve candidates, calculate a basket, validate it, and revise in response to changes. Filters can help specify constraints; they do not replace that planning behavior.
+This can be agentic without a free-form chat-only interface: the agent can parse a request, retrieve candidates, calculate a combined basket, validate units and quantities, present a draft, and recalculate when the user swaps or removes a meal. Filters do not replace this request-and-review flow.
 
 ## Suggested mobile hierarchy
 
-Top to bottom:
+1. **Groceries header.** Include a shopping-state or purchase-review action when useful. “Review purchases” is clearer than “Checkout” if no payment is being processed.
+2. **Freeform request input.** Text and/or voice for quick items, ingredient requests, or meal requests. No required filters or recipe feed. A single contextual Olly insight may appear below meal coverage when the current data supports one. Clear the text after submission while retaining relevant list/Pantry/meal context.
+3. **Combined grocery list.** Keep this as the primary working surface. Each row shows item, intended quantity/package, estimated price where available, and a clear status such as on list or in cart. Expand a row for Pantry contribution, combined meal demand, shortfall, and which selected meals use it. Editing and deleting remain visible; swipe can only be an optional shortcut.
+4. **Meals for this shop / meal coverage.** A compact, expandable area for meals the user explicitly added to this shopping context. Each meal shows ingredient-level Pantry/list/cart/short status. Removing a meal opens a review of quantity changes before list quantities are reduced.
+5. **Contextual unlock insight.** When reliable meal data identifies a useful specific addition, show one compact Olly card with the item(s), the additional meals they could support, and an explicit Add action. Do not turn this into a scrollable recommendation feed.
+6. **Purchase review.** Confirm what was actually bought and the package/quantity, then update Pantry. This is not payment checkout.
 
-1. **Groceries header.** Include a shopping-completion/review action when useful.
-2. **Request input.** A fresh text or voice box for asking for items or meal ideas. Each submission clears the box but uses current list, Pantry, and preferences as context. Responses are suggestions; the user explicitly adds items. Nothing is deleted automatically.
-3. **Combined grocery list.** Each row shows item, quantity/package, estimated price range, and the number of currently shown meals it supports. Expand any row to see all item details and which meals use it. Let the user edit or delete an item; swipe actions can be a shortcut, with a visible edit/delete control available too.
-4. **Meals supported by this list.** Each meal card expands to show its ingredient list and each ingredient's status: in Pantry, on this shopping list, or still missing. The section may distinguish meals makeable now from Pantry and meals enabled after purchasing list items; never present unpurchased items as owned.
-5. **Suggestions to unlock more meals.** Show optional additions with their estimated cost and the specific meals they would enable. Tapping opens the meal details or list of meals; the user chooses whether to add the suggested items.
-6. **Purchase confirmation.** Provide a clear “Review purchases” / “I bought these” action, ideally available when shopping is complete. Review which items and quantities were actually bought, confirm them, then update Pantry. This is not payment checkout.
-
-The list remains the main working surface. A visible check/selection control can mark items picked up, while edit/delete remains a separate action so users do not confuse purchase status with removal.
+The meal-coverage area can be collapsed so users who only want a grocery checklist can focus on shopping. A list/grid toggle may change the grocery items' internal presentation only; it must not alter the surrounding page layout.
 
 ## Aesthetic direction
 
-Make the editable basket the operational anchor and meal coverage the visible explanation for it. A user should be able to answer at a glance: what meals did I select, what am I buying, what does it cost approximately, and which meals use each shared ingredient? Keep estimates visibly labeled and show how changes affect both cost and meal options.
+Keep the grocery list visually primary and make ownership state legible at a glance. Use compact meal context to explain why quantities exist, and use expanded ingredient detail or a change-review prompt to explain shared needs. Make the differences among Pantry, list, in-cart, and shortfall unmistakable with words, icons, and color. Beneath meal coverage, one small Olly insight may point out a concrete ingredient addition and the extra meal options it enables; keep it optional and distinct from a recipe feed.
 
-## Agreed recommendation priorities
+## Agreed priorities
 
-Prioritize using Pantry food and showing useful meals unlocked by additions. Respect the user's budget. Tailor variety and familiar/new choices to the user's request; refine the exact ranking through testing.
+1. Keep Pantry stock and intended purchases separate.
+2. Consolidate meal ingredient needs across meals explicitly selected for the current shopping context.
+3. Show Pantry contribution, list coverage, physical cart status, and remaining shortfall.
+4. Keep meal choices optional; do not turn this screen into a rigid weekly planner.
+5. Make list changes user-controlled, especially when a meal is removed or a quantity would decrease.
+6. Treat freeform requests as the main way to ask for meal ideas or grocery help; do not require filters or show a standing feed. Allow one compact, evidence-based unlock insight when it is useful.

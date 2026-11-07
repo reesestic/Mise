@@ -53,7 +53,7 @@ The most important product behavior is trustworthy state:
 
 - Pantry means food the user actually owns.
 - Groceries means items the user intends to buy.
-- Meal suggestions explain readiness or the value of a possible addition.
+- Meals explicitly selected for a shopping context explain ingredient demand and coverage; viewing or saving a meal alone does not reserve food or change Groceries.
 - A planned purchase does not become owned food until the user confirms what was bought and in what quantity.
 - Cooking changes inventory only after the user confirms what they made or used.
 
@@ -78,12 +78,12 @@ Cook Now does not treat unpurchased grocery items as owned and does not build th
 
 - One open, editable shopping list is the main work area.
 - A fresh text/voice input at the top accepts requests. After a request, the input clears, while Mise keeps relevant current-list, Pantry, and preference context.
-- Requests return suggested items or meal options. Users explicitly add suggestions. Mise never deletes old items automatically; users remove items themselves.
-- Each consolidated ingredient row shows quantity/package, estimated price range where available, and how many currently shown meals use it. Expanding an item shows its details and all associated meals.
-- Return a concise choice set to reduce decision time; favor affordable, versatile ingredients that support useful variety when they fit the request, without requiring the user to commit to every suggested meal.
+- The freeform text/voice request accepts ordinary-language grocery and meal requests. Meal candidates are returned only when the user asks; Groceries has no required filter system or unsolicited recipe feed. A single compact, data-supported Olly insight may point out specific items that could unlock additional meals.
+- Each consolidated ingredient row shows intended quantity/package, estimated price where available, and which selected meals use it. Expanded details show Pantry contribution, combined meal demand, list coverage, physical in-cart amount, and any shortfall.
+- When the user explicitly adds meal candidates to the current shopping context, calculate combined ingredient demand across those meals and compare it with Pantry stock and current list quantities. Keep each meal visible as an option while clearly showing when the combined set is short.
 - Use nutrition and macro goals as user-specified ranking or constraints, with supported estimates and visible tradeoffs. Do not force a fixed plan or imply health outcomes.
-- An expandable **Meals Supported by This List** section shows each meal's ingredients and whether each is in Pantry, on the list, or still missing. It distinguishes what can be made now from Pantry from what the list could enable after purchase.
-- Suggestions such as “Add these ingredients to unlock two more meals” show the associated meals and estimated cost before the user chooses Add.
+- A compact, expandable meal-coverage area shows only meals the user explicitly brought into this shopping context. It shows whether ingredients are in Pantry, on the list, physically in the cart, or still missing. The user can collapse it and keep the grocery list as the main task.
+- If removing or changing a meal reduces meal-derived grocery quantities, show the changes and let the user decide before reducing existing list items. Never silently remove manually added groceries.
 - Purchase confirmation records which items and quantities/packages were actually bought. It is not payment checkout and does not require price entry.
 
 Groceries does not claim to find live sales, the cheapest cart, or exact totals without reliable retailer data. Price ranges are estimates. The MVP can use the easiest maintained baseline that is accurate enough to compare options; actual spending is not reported unless supplied by the user or a trusted source.
@@ -119,7 +119,7 @@ Pantry does not include items merely because they are on the shopping list. Expi
 
 ### 1. Budget-conscious meal variety
 
-The user asks for several affordable chicken meals. Mise considers Pantry and preferences, suggests meal options, consolidates shared ingredient needs, and shows estimated price ranges and meal links. The user chooses items to add, edits the list, shops, and confirms quantities. Pantry updates; Cook Now reflects the meals supported by the confirmed stock.
+The user asks for several affordable chicken meals. Mise considers Pantry and relevant preferences, returns a concise editable candidate set, and calculates combined ingredient needs and estimated additional basket cost. The user chooses which meals to include in this shopping context, reviews the consolidated grocery changes, shops, and confirms quantities. Pantry updates; Cook Now reflects the meals supported by confirmed stock.
 
 ### 2. Goal-based but flexible eating
 
@@ -131,7 +131,7 @@ Cook Now surfaces meals using Pantry items, including food the user wants to use
 
 ### 4. Discovery and later shopping
 
-The user explores the broader catalog, saves a new recipe, and later asks Groceries to suggest items for it. The user reviews the cost and shared ingredients before choosing Add. Saving alone never changes the list.
+The user explores the broader catalog, saves a new recipe, and later explicitly sends it to the current Groceries context. Mise recalculates shared ingredient needs; saving alone never changes the list or reserves Pantry stock.
 
 ### 5. Plans change after shopping
 
@@ -139,7 +139,7 @@ The user confirms actual purchases and quantities. Later, Cook Now recommends me
 
 ## AI and system behavior
 
-Mise's agentic behavior is a tool-using planning workflow, not just free-form chat. It interprets a request in the context of the current grocery list, Pantry, and profile; retrieves relevant meals; calculates ingredient needs and overlap; checks feasibility and estimates; then presents explainable suggestions. The user decides which additions to make. A calculation/validation layer should check ingredient quantities, serving scaling, and meal readiness rather than relying on a language model for arithmetic.
+Mise's agentic behavior is a tool-using planning workflow, not just free-form chat. When asked, it interprets a request in the context of the current grocery list, Pantry, selected meals, and profile; retrieves relevant meals; calculates combined ingredient needs and overlap; checks feasibility and estimates; then presents an explainable proposal. The user decides which meals or list changes to accept. A calculation/validation layer checks ingredient quantities, serving scaling, and meal readiness rather than relying on a language model for arithmetic.
 
 ### Proposed MVP system
 
@@ -188,7 +188,7 @@ Mise is useful if people can quickly understand and trust what to buy and what t
 - Whether users can correctly distinguish owned food, intended purchases, and future meal possibilities.
 - Whether suggestions are accepted, edited, or dismissed—and why.
 
-Potential measures include time to select a meal or build a list, user-reported confidence and budget fit, usefulness of suggested additions, grocery-list correction burden, confirmed cooking after shopping, and self-reported unused food. Do not claim savings or waste reduction without a credible baseline.
+Potential measures include time to select a meal or build a list, user-reported confidence and budget fit, usefulness of meal-linked quantities, grocery-list correction burden, confirmed cooking after shopping, and self-reported unused food. Do not claim savings or waste reduction without a credible baseline.
 
 ## Key risks and guardrails
 

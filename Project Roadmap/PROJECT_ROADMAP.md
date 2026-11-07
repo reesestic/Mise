@@ -73,11 +73,11 @@ Mise keeps three states distinct:
 
 ## Definition of a complete first product loop
 
-A user can browse a meal, see whether confirmed Pantry supports it, send missing ingredients to the editable grocery list, inspect list meal coverage, approve or edit suggested additions, confirm actual purchases, see Pantry update, and confirm cooking before stock is deducted.
+A user can browse a meal, see whether confirmed Pantry supports it, explicitly add its ingredient needs to the editable grocery list, inspect shared meal coverage and shortfalls, review quantity changes, confirm actual purchases, see Pantry update, and confirm cooking before stock is deducted.
 
 ## Product guardrails
 
-- No grocery suggestion silently edits or deletes existing items.
+- Meal requests and grocery quantity changes are explicit proposals; nothing silently edits, reduces, or deletes existing list items.
 - Shopping list stock never counts as Pantry inventory.
 - Purchase confirmation records actual quantities; actual prices are optional.
 - Cooking confirmation is required before inventory deduction.
